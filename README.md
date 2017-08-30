@@ -3,7 +3,7 @@ express pratice
 You can clone my repository with Terminal or CMD
 $ git clone https://github.com/lQUI/express.git
 
-$ cd test_express_hello_world
+$ cd express
 
 $ npm install
 
