@@ -10,7 +10,9 @@ $ npm install
 $ node app.js //start node serve
 
 Open the bowser and go to：localhost:3000
+
 You can see "Hello World!" on the web site.
 
 And input localhost:3000/home?title=title.
+
 You can see 'Hello there!' and the tab will be named 'title'.  
