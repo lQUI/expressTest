@@ -7,7 +7,7 @@ $ cd test_express_hello_world
 
 $ npm install
 
-$ node app.js //start node serve
+$ node index.js //start node serve
 
 Open the bowser and go to：localhost:3000
 
