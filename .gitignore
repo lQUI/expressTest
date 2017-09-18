@@ -11,3 +11,4 @@ npm-debug.log
 .env
 yarn-error.log
 *.*~
+*.log
