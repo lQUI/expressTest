@@ -2,7 +2,7 @@
 
 Installation and Use
 ==
-在运行项目之前先确保本机已有[nodejs](https://nodejs.org/en)和Mysql<https://github.com/lQUI/express>.
+在运行项目之前先确保本机已有[nodejs](https://nodejs.org/en)和Mysql(https://dev.mysql.com/doc/refman/5.7/en/installing.html).
 
 
 然后通过cmd输入<br/>
