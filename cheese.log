@@ -1,0 +1,9 @@
+[2017-09-18 14:31:01.532] [DEBUG] multi - hello
+[2017-09-18 14:31:01.534] [INFO] multi - hello
+[2017-09-18 14:45:14.927] [DEBUG] cheese - hello
+[2017-09-18 14:45:14.930] [INFO] cheese - hello
+[2017-09-18 15:16:12.303] [DEBUG] default - hello
+[2017-09-18 15:16:12.305] [INFO] default - hello
+[2017-09-18 15:18:00.942] [DEBUG] default - hello
+[2017-09-18 15:18:00.942] [INFO] default - hello
+[2017-09-18 18:25:24.436] [DEBUG] default - WOW!!!
