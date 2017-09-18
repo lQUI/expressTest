@@ -1,15 +1,16 @@
 {
-  "name": "hellword",
+  "name": "express_pratice",
   "version": "1.0.0",
-  "main": "helloworld",
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.15.4"
-  },
-  "devDependencies": {},
-  "description": "helloword"
+    "express": "^4.15.4",
+    "jade": "^1.11.0",
+    "mysql": "^2.14.1"
+  }
 }
