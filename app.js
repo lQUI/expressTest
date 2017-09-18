@@ -12,6 +12,11 @@ var pool = mysql.createPool({
     database : 'testdb'
 });
 
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.raw({ type: '*/*' }));
+
 const log4js = require('log4js');
 log4js.configure({
     appenders:{
