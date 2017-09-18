@@ -1,4 +1,4 @@
-<form action="v3/plus" method="post">
+<form action="/v3/plus" method="post">
     <input name='a' type='text'>
     +
     <input name='b' type='text'>
@@ -17,7 +17,7 @@ level:<select id='userLogLevel'>
 </select>
 
 <div id="userLog">
-    <form action='v3/peter/debug/append' method='post'>
+    <form action='/v3/peter/debug/append' method='post'>
         <input ivalue="append" type="submit" value="add"> 
     </form>
 </div>

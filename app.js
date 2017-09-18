@@ -27,21 +27,37 @@ app.get('/', function(req, res)  {
     res.send('Hello world');
 });
 
+//3.1 Basic Parameterized Http Route
 app.get('/v3/test-api', function(req, res) {
-    console.log('hello world');    
+    console.log('hello world');
+    res.send('');    
 });
 
-app.post('/v:version/:action', function(req, res) {
-    console.log(req.params.version + req.params.action + req.query.a + req.params );
-    var result = parseInt(req.a) + parseInt(req.b);
+//3.2 Basic Query in Request
+app.get('/v:version/:action', function(req, res) {
+    console.log(req.params.version + req.params.action + req.query.a + req.query.b );
+    var result = parseInt(req.query.a) + parseInt(req.query.b);
     res.jsonp({
        ' ret' : 1000,
         'version' : req.params.version,
         'action' :req.params.action,
-        'result' :req.body  
+        'result' :result 
     }); 
 });
 
+//3.3 URLEncoded Form in Request
+app.post('/v:version/:action', function(req, res) {
+    console.log(req.params.version + req.params.action + req.query.a + req.params );
+    var result = parseInt(req.body.a) + parseInt(req.body.b);
+    res.jsonp({
+       ' ret' : 1000,
+        'version' : req.params.version,
+        'action' :req.params.action,
+        'result' :result
+    });
+});
+
+//3.4  Html Template Engine Practice
 app.get('/v:version/:namespace/:resource/:action', function (req, res) {
     var students = [];
     for(i=0;i<5;i++){
@@ -54,12 +70,14 @@ app.get('/v:version/:namespace/:resource/:action', function (req, res) {
     res.render('index', {students : students});
 });
 
+//3.5 Logging to Multiple Files Differentiated by Levels
 app.post('/v:version/:resource/:level/:action', function(req,res) {
     console.log('enter');
     userLogger.log(req.params.level,'WOW!!!');  
     res.send({ret : 1000});
 });
 
+//3.6 Hiding Your Authentication Protected Service behind AuthMiddleware
 app.get('/:userId/wallet/self/detail', function(req, res, next) {
     var isPass = false;
     if('' != req.query.intAuthToken){//判断intAuthToken是否存在
