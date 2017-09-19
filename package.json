@@ -11,8 +11,10 @@
   "dependencies": {
     "body-parser": "^1.18.1",
     "express": "^4.15.4",
+    "fs": "0.0.1-security",
     "jade": "^1.11.0",
     "log4js": "^2.3.3",
-    "mysql": "^2.14.1"
+    "mysql": "^2.14.1",
+    "yaml": "^0.3.0"
   }
 }
