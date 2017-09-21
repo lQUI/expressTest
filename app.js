@@ -1,19 +1,11 @@
 const express = require('express');
 const app= express();
-const mysql = require('mysql');
 const constants = require('./constants');
 const bodyParser = require('body-parser');
-const log4js = require('log4js');
-const yaml = require('js-yaml');
-const fs = require('fs');
-const mysqlConfigFilePath = (
-const pool = mysql.createPool({
-    connectionLimit : 10,
-    host : 'localhost',
-    user : 'root',
-    password : '123456',
-    database : 'testdb'
-});
+//const yaml = require('js-yaml');
+//const fs = require('fs');
+const testRouter = require('./TestRouter.js')
+
 
 app.use('/static', express.static('public'));
 app.set('view engine', 'jade');
@@ -21,16 +13,6 @@ app.set('view engine', 'jade');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.raw({ type: '*/*' }));
-
-//init log4js
-log4js.configure({
-    appenders:{
-    cheese:{type: 'file', filename:'cheese.log'},
-    console:{type: 'console'}
-    },
-    categories:{default:{appenders:['cheese','console'], level:'debug'}}
-});
-const userLogger = log4js.getLogger();
 
 /**
 *
@@ -42,10 +24,7 @@ app.get(constants.ROUTE_PATHS.ROOT, function(req, res)  {
 /**
 *3.1 Basic Parameterized Http Route
 **/
-app.get(constants.ROUTE_PATHS.BASE + constants.ROUTE_PATHS.TEST_API, function(req, res) {
-    console.log('hello world');
-    res.send('');    
-});
+app.get(constants.ROUTE_PATHS.BASE + constants.ROUTE_PATHS.TEST_API, testRouter.helloWorld);
 
 /**
 *3.2 Basic Query in Request
