@@ -82,3 +82,5 @@ class TestRouter {
     }
 
 }
+
+exports.default=TestRouter;

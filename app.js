@@ -4,7 +4,7 @@ const constants = require('./constants');
 const bodyParser = require('body-parser');
 //const yaml = require('js-yaml');
 //const fs = require('fs');
-const testRouter = require('./TestRouter.js')
+const TestRouter = require('./TestRouter.js').default;
 
 
 app.use('/static', express.static('public'));
@@ -14,6 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.raw({ type: '*/*' }));
 
+const testRouter = new TestRouter();
 /**
 *
 */
@@ -29,30 +30,12 @@ app.get(constants.ROUTE_PATHS.BASE + constants.ROUTE_PATHS.TEST_API, testRouter.
 /**
 *3.2 Basic Query in Request
 **/
-app.get(constants.ROUTE_PARAMS.VERSION + constants.ROUTE_PARAMS.ACTION,  function(req, res) {
-    console.log(req.params.version + req.params.action + req.query.a + req.query.b );
-    var result = parseInt(req.query.a) + parseInt(req.query.b);
-    res.jsonp({
-       ' ret' : 1000,
-       'version' : req.params.version,
-       'action' : req.params.action,
-       'result' :result 
-    }); 
-});
+app.get(constants.ROUTE_PARAMS.VERSION + constants.ROUTE_PARAMS.ACTION, testRouter.addOprate);
 
 /**
 *3.3 URLEncoded Form in Request
 **/
-app.post(constants.ROUTE_PATHS.BASE + constants.ROUTE_PARAMS.ACTION, function(req, res) {
-    console.log(req.params.version + req.params.action + req.query.a + req.params );
-    var result = parseInt(req.body.a) + parseInt(req.body.b);
-    res.jsonp({
-       ' ret' : 1000,
-        'version' : req.params.version,
-        'action' :  req.params.action,
-        'result' : result
-    });
-});
+app.post(constants.ROUTE_PATHS.BASE + constants.ROUTE_PARAMS.ACTION, testRouter.addOprate);
 
 /**
 *3.4  Html Template Engine Practice
@@ -72,11 +55,7 @@ app.get(constants.ROUTE_PATHS.BASE + constants.ROUTE_PARAMS.NAMESPACE + constant
 /**
 *3.5 Logging to Multiple Files Differentiated by Levels
 **/
-app.post(constants.ROUTE_PARAMS.USERID + constants.ROUTE_PARAMS.NAMESPACE + constants.ROUTE_PARAMS.LEVEL + constants.ROUTE_PATHS.DETAIL, function(req,res) {
-    console.log('enter');
-    userLogger.log(req.params.level,'WOW!!!');  
-    res.send({ret : 1000});
-});
+app.post(constants.ROUTE_PARAMS.USERID + constants.ROUTE_PARAMS.NAMESPACE + constants.ROUTE_PARAMS.LEVEL + constants.ROUTE_PATHS.DETAIL, testRouter.checkUserIsLogin);
 
 /**
 *3.6 Hiding Your Authentication Protected Service behind AuthMiddleware
