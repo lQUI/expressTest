@@ -24,7 +24,7 @@ class TestRouter {
         res.send('Hello World!');
     }
 
-    addOprate(res, req) {
+    addOprate(req, res) {
         var result = parseInt(req.query.a || req.body.a) + parseInt(req.query.b || req.body.b);
         res.jsonp({
            ' ret' : 1000,
@@ -39,7 +39,7 @@ class TestRouter {
         res.send({ret : 1000});
     }
 
-    checkUserIsLogin(req, res) {
+    checkUserIsLogin(req, res,next) {
         if('' != req.query.intAuthToken){//判断intAuthToken是否存在
             var token ;
             pool.getConnection(function(err, connection){
@@ -50,7 +50,10 @@ class TestRouter {
                         console.log('user is not found');
                         res.send({ret : 1001});
                     }else{
-                        checkUserIsLegal(req, res);  
+                        //checkUserIsLegal (req, res); 
+                        console.log('next');
+                        req.body.token = token;
+                        next(); 
                     }
                 });
                 connection.release();
@@ -62,16 +65,18 @@ class TestRouter {
     }
 
     checkUserIsLegal(req, res){
+        var  isPass = false;
+        console.log ('checkUserIsLegal:' + req.body.tokenId);
         pool.getConnection(function(err, connection) {
-            connection.query('select * from user where id = ?',[token.id],function(error, results, fields) {
+            connection.query('select * from user where id = ?',[req.body.token.id],function(error, results, fields) {
                 if (error)  throw error;
-
-                if(results.length > 0 && results[0].id == req.params.userId){//判断用户是否合法
+                console.log(req.params.userid);
+                if(results.length > 0 && results[0].id == req.params.userid){//判断用户是否合法
                     isPass=true; console.log('pass!! '+isPass);
                 }
 
                 if(isPass){
-                    res.render('user', {token : token, user :results[0]});
+                    res.render('user', {token : req.body.token, user :results[0]});
                 }else{
                     console.log('user.id is not match userId');
                     res.send({ret : 1001});
