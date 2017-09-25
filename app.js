@@ -2,8 +2,6 @@ const express = require('express');
 const app = express();
 const constants = require('./constants');
 const bodyParser = require('body-parser');
-//const yaml = require('js-yaml');
-//const fs = require('fs');
 const TestRouter = require('./TestRouter.js').default;
 
 
@@ -32,11 +30,11 @@ app.get(constants.ROUTE_PATHS.ROOT, function(req, res) {
 *
 * @apiExample 测试方法:
 * curl -i http://localhost:3000/v3/test-api
-* @
+* 
 * @apiSuccess {String} print 'Hello World!!'
 * @apiDescription print 'Hello World!!'
 */
-app.get(constants.ROUTE_PARAMS.ACTION + constants.ROUTE_PATHS.TEST_API, testRouter.helloWorld);
+app.get(constants.ROUTE_PARAMS.VERSION + constants.ROUTE_PATHS.TEST_API, testRouter.helloWorld);
 
 /**
 * @api {get} /v:version/:action 3.2 Basic Query in Request
@@ -90,12 +88,12 @@ app.get(constants.ROUTE_PARAMS.VERSION + constants.ROUTE_PARAMS.ACTION, testRout
 *      'result':7
 *    }
 */
-app.post(constants.ROUTE_PARAMS.ACTION + constants.ROUTE_PARAMS.ACTION, testRouter.addOprate);
+app.post(constants.ROUTE_PARAMS.VERSION + constants.ROUTE_PARAMS.ACTION, testRouter.addOprate);
 
 /**
 *3.4  Html Template Engine Practice
 */
-app.get(constants.ROUTE_PARAMS.ACTION + constants.ROUTE_PARAMS.NAMESPACE + constants.ROUTE_PARAMS.RESOURCE + constants.ROUTE_PATHS.LIST, function(req, res) {
+app.get(constants.ROUTE_PARAMS.VERSION + constants.ROUTE_PARAMS.NAMESPACE + constants.ROUTE_PARAMS.RESOURCE + constants.ROUTE_PATHS.LIST, function(req, res) {
   var students = [];
   for (i = 0; i < 5; i++) {
     var student = new Object();

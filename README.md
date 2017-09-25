@@ -45,7 +45,7 @@ Finished
 
 
 #3.5 Logging to Multiple Files Differentiated by Levels<br/>
-操作步骤：浏览器输入[http://localhost:3000/static/index.html](http://localhost:3000/v3#ltmfdbl)将会打开页面，然后选择需要记录的日志的用户名和日志的级别，点击'add'按钮，将会在该目录下生成cheese.log，而且该文件会记录下此次访问的时间，日志的级别和输出信息'WOW!!!'。
+操作步骤：浏览器输入[http://localhost:3000/static/index.html](http://localhost:3000/static/static/index.html#ltmfdbl)将会打开页面，然后选择需要记录的日志的用户名和日志的级别，点击'add'按钮，将会在该目录下生成cheese.log，而且该文件会记录下此次访问的时间，日志的级别和输出信息'WOW!!!'。
 
 
 #3.6 Hiding Your Authentication Protected Service behind AuthMiddleware<br/>
