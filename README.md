@@ -9,6 +9,7 @@ Installation and Use
 <code>$ git clone https://github.com/lQUI/express</code><br/>
 <code>$ cd express </code><br/>
 <code>$ npm install</code><br/>
+<code>$ cp configs/mysql.conf.template configs/mysql.conf ##在生成mysql.conf文件中填写数据库的连接信息</code><br/>
 <code>$ ./insert_example_data.sql.sh   ##导入该练习需要的样本数据</code><br/>
 
 
@@ -52,7 +53,10 @@ Finished
 操作步骤:浏览器输入[http://localhost:3000/sp100029/wallet/self/detail?intAuthToken=xxxyyyzz](http://localhost:3000/sp100029/wallet/self/detail?intAuthToken=xxxyyyzz),则会显示'Welcome "iphone6" user from "192.168.1.88"!',
 如果输入的是[http://localhost:3000/sp100029/wallet/self/detail](http://localhost:3000/sp100029/wallet/self/detail),则显示'{"ret":1001}';<br/>
 
-
+#3.7 Automate Your Documentation<br/>
+在接下来的执行,可能需要你本机装有[apidoc](http://apidocjs.com/index.html#install)
+输入一下指令会在项目目录下生成doc文件夹,该apidoc只描述了3.1~3.2的api</br>.
+<code>$ apidoc  -f "app\\.js$"</code>
 
 
 

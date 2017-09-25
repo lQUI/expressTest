@@ -2,6 +2,7 @@
     connectionLimit : 10,
     host : 'localhost',
     user : 'username',
+    port : 3306,
     password : 'password',
     database : 'database'
 }

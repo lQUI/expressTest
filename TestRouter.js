@@ -1,12 +1,16 @@
-//const mysqlConfigFilePath = (
+const baseAbsPath = __dirname + '/';
 const log4js = require('log4js');
 const mysql = require('mysql');
+const yaml = require('js-yaml');
+const fs = require('fs');
+const mysqlConfig = yaml.safeLoad(fs.readFileSync(baseAbsPath + 'configs/mysql.conf', 'utf8'));
 const pool = mysql.createPool({
-  connectionLimit: 10,
-  host: 'localhost',
-  user: 'root',
-  password: '123456',
-  database: 'testdb'
+  connectionLimit: mysqlConfig.connectionLimit,
+  host: mysqlConfig.host,
+  port: mysqlConfig.port,
+  user: mysqlConfig.user,
+  password: mysqlConfig.password,
+  database: mysqlConfig.database
 });
 
 //init log4js
@@ -52,6 +56,7 @@ class TestRouter {
   }
 
   checkUserIsLogin(req, res, next) {
+    console.log(mysqlConfig);
     if ('' != req.query.intAuthToken) { //判断intAuthToken是否存在
       var token;
       pool.getConnection(function(err, connection) {
@@ -112,4 +117,5 @@ class TestRouter {
 }
 
 exports.default = TestRouter;
+
 
