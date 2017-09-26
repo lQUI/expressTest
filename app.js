@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const constants = require('./constants');
 const bodyParser = require('body-parser');
-const TestRouter = require('./TestRouter.js').default;
+const TestRouter = require('./routers/TestAuthRouter').default;
 
 
 app.use('/static', express.static('public'));
@@ -110,13 +110,13 @@ app.get(constants.ROUTE_PARAMS.VERSION + constants.ROUTE_PARAMS.NAMESPACE + cons
 /**
 *3.5 Logging to Multiple Files Differentiated by Levels
 **/
+app.use(constants.ROUTE_PARAMS.USERID , testRouter.checkUserLogin);
 app.post(constants.ROUTE_PARAMS.USERID + constants.ROUTE_PARAMS.NAMESPACE + constants.ROUTE_PARAMS.LEVEL + constants.ROUTE_PATHS.DETAIL, testRouter.logUser);
 
 /**
 *3.6 Hiding Your Authentication Protected Service behind AuthMiddleware
 **/
-app.use(constants.ROUTE_PARAMS.USERID, testRouter.checkUserIsLogin);
-app.get(constants.ROUTE_PARAMS.USERID + constants.ROUTE_PATHS.WALLET + constants.ROUTE_PATHS.SELF + constants.ROUTE_PATHS.DETAIL, testRouter.checkUserIsLegal);
+app.get(constants.ROUTE_PARAMS.USERID + constants.ROUTE_PATHS.WALLET + constants.ROUTE_PATHS.SELF + constants.ROUTE_PATHS.DETAIL, testRouter.getDetail);
 
 var server = app.listen(3000, function() {
   var host = server.address().address;
