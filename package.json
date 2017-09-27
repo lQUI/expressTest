@@ -16,6 +16,8 @@
     "js-yaml": "^3.10.0",
     "log4js": "^2.3.3",
     "mysql": "^2.14.1",
+    "mysql2": "^1.4.2",
+    "sequelize": "^4.11.1",
     "yaml": "^0.3.0"
   },
   "devDependencies": {

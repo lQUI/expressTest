@@ -3,12 +3,11 @@ const Logger = require('../utils/Logger');
 const AbstractAuthRouterCollection = require('./AbstractAuthRouterCollection.js');
 const TokenCache = require('../TokenCache').default;
 const tokenCache = new TokenCache();
-
-const MySQLManager = require('../utils/MySQLManager').default;
-const mysqlManager = MySQLManager.instance;
-
 const userLogger = Logger.instance.app;
 const stdoutLogger = Logger.instance.stdout;
+
+const Token = require('../model/Token').default;
+const User = require('../model/User').default;
 
 const helloWorld = function(req, res, next) {
   res.send('Hello World!');
@@ -53,19 +52,33 @@ const checkUserLogin = function(req, res, next) {
 
 const getDetail = function(req, res, next) {
   let intAuthToken = req.query.intAuthToken || res.params.intAuthToken;
-  mysqlManager.query('select t.*,u.name from token t,user u where intAuthToken = ? and u.id=t.id ', [intAuthToken], function(err, results, fields) {
-    if (null !== results && results.length > 0) {
-      res.render('user', {
-        token: results[0],
-        user: {
-          name: results[0].name
-        }
-      });
-    } else {
-      err.ret = 1001;
-      instance.respondWithError(res, err);
+  Token.findOne({
+    where: {
+      intAuthToken: intAuthToken
     }
-  });
+  })
+    .then(function(token) {
+      if (null !== token) {
+        User.findOne({
+          where: {
+            id: token.tokenId
+          }
+        })
+          .then(user => {
+            res.render('user', {
+              token: token,
+              user: user
+            });
+          });
+      } else {
+        throw 'not found any detail in mysql';
+      }
+    })
+    .catch(function(res, err) {
+      stdout.debug(err);
+      err.ret = 1001
+      instance.respondWithError(err);
+    });
 }
 
 class TestAuthRouter extends AbstractAuthRouterCollection {
@@ -78,7 +91,6 @@ class TestAuthRouter extends AbstractAuthRouterCollection {
     this.checkUserLogin = checkUserLogin.bind(this);
     this.getDetail = getDetail.bind(this);
   }
-
 }
 
 exports.default = TestAuthRouter;

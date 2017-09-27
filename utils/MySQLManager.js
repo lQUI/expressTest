@@ -1,15 +1,16 @@
 const baseAbsPath = __dirname + '/';
-const singletonEnforcer = Symbol();
+
 const singleton = Symbol();
-const mysql = require('mysql');
-const Logger = require('../utils/Logger');
+const singletonEnforcer = Symbol();
+
 const yaml = require('js-yaml');
 const fs = require('fs');
 
-const logger = Logger.instance.stdout;
+const Sequelize = require('sequelize');
+
+const Logger = require('./Logger');
 
 class MySQLManager {
-
   static get instance() {
     if (!this[singleton]) {
       this[singleton] = new MySQLManager(singletonEnforcer);
@@ -19,37 +20,48 @@ class MySQLManager {
 
   constructor(enforcer) {
     if (enforcer != singletonEnforcer)
-      throw "cannot constu  singleton";
-    try {
-      const mysqlConfig = yaml.safeLoad(fs.readFileSync(baseAbsPath + '../configs/mysql.conf', 'utf8'));
-      this.pool = mysql.createPool({
-        connectionLimit: mysqlConfig.connectionLimit,
-        host: mysqlConfig.host,
-        port: mysqlConfig.port,
-        user: mysqlConfig.user,
-        password: mysqlConfig.password,
-        database: mysqlConfig.database
-      });
+      throw "Cannot construct singleton";
 
-    } catch (err) {
-      console.log(err);
+    const instance = this;
+
+    this.dbRef = null;
+    this.host = null;
+    this.port = null;
+    this.dbname = null;
+
+    this.username = null;
+    this.password = null;
+
+    this.testConnectionAsync = this.testConnectionAsync.bind(this);
+
+    try {
+      const config = yaml.safeLoad(fs.readFileSync(baseAbsPath + '../configs/mysql.conf', 'utf8'));
+      this.host = config.host;
+      this.port = config.port;
+      this.dbname = config.dbname;
+
+      this.username = config.username;
+      this.password = config.password;
+
+      this.dbRef = new Sequelize(instance.dbname, instance.username, instance.password, {
+        host: instance.host,
+        port: instance.port,
+        dialect: 'mysql',
+        pool: {
+          max: 5,
+          min: 0,
+          idle: 10000
+        }
+      });
+    } catch (e) {
+      console.log(e);
     }
   }
 
-  query(sql, data, callback) {
-    this.pool.getConnection(function(err, conn) {
-      if (err) {
-        console.log(err);
-        callback(err, null, null);
-      } else {
-        logger.debug(sql + "    " + data);
-        conn.query(sql, data, function(qerr, vals, fields) {
-          conn.release();
-          callback(qerr, vals, fields);
-        });
-      }
-    });
+  testConnectionAsync() {
+    const instance = this;
+    return instance.dbRef.authenticate();
   }
-}
 
-exports.default = MySQLManager;
+}
+module.exports = MySQLManager;

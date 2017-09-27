@@ -1,8 +1,8 @@
 {
     connectionLimit : 10,
     host : 'localhost',
-    user : 'username',
+    username: 'username',
     port : 3306,
     password : 'password',
-    database : 'database'
+    dbname : 'database'
 }

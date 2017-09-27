@@ -38,8 +38,8 @@ log4js.configure({
   },
   categories: {
     default: {
-      appenders: ['stdout', 'apiAccess', 'apiError', 'app'],
-      level: 'debug' // Accepts any log from the appenders at or above 'debug' level. 
+      appenders: ['stdout', 'app'],
+      level: 'debug'
     }
   }
 });
