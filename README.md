@@ -9,11 +9,11 @@ Installation and Use
 <code>$ git clone https://github.com/lQUI/express</code><br/>
 <code>$ cd express </code><br/>
 <code>$ npm install</code><br/>
-<code>$ cp configs/mysql.conf.template configs/mysql.conf ##在生成mysql.conf文件中填写数据库的连接信息</code><br/>
+<code>$ cp configs/mysql.conf.template configs/mysql.conf ##在生成mysql.conf文件中修改数据库的连接信息</code><br/>
 <code>$ ./insert_example_data.sql.sh   ##导入该练习需要的样本数据</code><br/>
 
 
-然后,需要修改[app.js](https://github.com/lQUI/express/blob/master/app.js)里的mysql连接配置信息.
+然后,需要修改mysql.conf里的mysql连接配置信息.
 
 然后启动运行
 <code>$ node app.js</code><br/>
@@ -25,7 +25,6 @@ Finished
 
 完成[文档](https://shimo.im/doc/jMyLTKOtyRobZFcB?r=XY7NO9/#magicdomid96)中的任务
 
-定义Routes文件在[app.js](https://github.com/lQUI/express/blob/master/app.js)
  
 
 #3.1 Basic Parameterized Http Route<br/>

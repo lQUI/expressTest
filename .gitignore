@@ -12,5 +12,5 @@ npm-debug.log
 yarn-error.log
 *.*~
 *.log
-*.config
+configs/*.config
 

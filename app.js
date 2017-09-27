@@ -18,9 +18,6 @@ app.use(bodyParser.raw({
 
 const testRouter = new TestRouter();
 
-app.get(constants.ROUTE_PATHS.ROOT, function(req, res) {
-  res.send('Hello world');
-});
 
 /**
 * @api {get} /v3/test-api  3.1 Basic Parameterized Http Route
@@ -110,12 +107,12 @@ app.get(constants.ROUTE_PARAMS.VERSION + constants.ROUTE_PARAMS.NAMESPACE + cons
 /**
 *3.5 Logging to Multiple Files Differentiated by Levels
 **/
-app.use(constants.ROUTE_PARAMS.USERID , testRouter.checkUserLogin);
-app.post(constants.ROUTE_PARAMS.USERID + constants.ROUTE_PARAMS.NAMESPACE + constants.ROUTE_PARAMS.LEVEL + constants.ROUTE_PATHS.DETAIL, testRouter.logUser);
+app.post(constants.ROUTE_PARAMS.VERSION + constants.ROUTE_PARAMS.NAMESPACE + constants.ROUTE_PARAMS.LEVEL + constants.ROUTE_PARAMS.ACTION, testRouter.logUser);
 
 /**
 *3.6 Hiding Your Authentication Protected Service behind AuthMiddleware
 **/
+app.use(constants.ROUTE_PARAMS.USERID, testRouter.checkUserLogin);
 app.get(constants.ROUTE_PARAMS.USERID + constants.ROUTE_PATHS.WALLET + constants.ROUTE_PATHS.SELF + constants.ROUTE_PATHS.DETAIL, testRouter.getDetail);
 
 var server = app.listen(3000, function() {
@@ -124,8 +121,6 @@ var server = app.listen(3000, function() {
 
   console.log('example app listening at http://%s:%s', host, port);
 });
-
-
 
 
 
