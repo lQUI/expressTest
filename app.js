@@ -112,8 +112,7 @@ app.post(constants.ROUTE_PARAMS.VERSION + constants.ROUTE_PARAMS.NAMESPACE + con
 /**
 *3.6 Hiding Your Authentication Protected Service behind AuthMiddleware
 **/
-app.use(constants.ROUTE_PARAMS.USERID, testRouter.checkUserLogin);
-app.get(constants.ROUTE_PARAMS.USERID + constants.ROUTE_PATHS.WALLET + constants.ROUTE_PATHS.SELF + constants.ROUTE_PATHS.DETAIL, testRouter.getDetail);
+app.get(constants.ROUTE_PARAMS.USERID + constants.ROUTE_PATHS.WALLET + constants.ROUTE_PATHS.SELF + constants.ROUTE_PATHS.DETAIL, testRouter.checkUserLogin, testRouter.getDetail);
 
 var server = app.listen(3000, function() {
   var host = server.address().address;
@@ -121,6 +120,5 @@ var server = app.listen(3000, function() {
 
   console.log('example app listening at http://%s:%s', host, port);
 });
-
 
 
