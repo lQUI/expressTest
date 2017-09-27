@@ -48,7 +48,7 @@ Finished
 
 
 #3.6 Hiding Your Authentication Protected Service behind AuthMiddleware<br/>
-实现过程:该例子中并没有提供登陆的实现,这里主要根据用户拿到intAuthToken和id通过[app.js](https://github.com/lQUI/express/blob/master/app.js)进行判断,首先根据intAuthToken去token表查询是否有数据,如果有在判断查到的数据里的id是否与request提供的id一致,若一致说明已经登陆了.<br/>
+实现过程:该例子中并没有提供登陆的实现,这里主要根据用户拿到intAuthToken和id后,在Token表中查询是否有值,如有则说明该用户已经能够登陆,可以执行下一步的"查询详情操作".<br/>
 操作步骤:浏览器输入[http://localhost:3000/sp100029/wallet/self/detail?intAuthToken=xxxyyyzz](http://localhost:3000/sp100029/wallet/self/detail?intAuthToken=xxxyyyzz),则会显示'Welcome "iphone6" user from "192.168.1.88"!',
 如果输入的是[http://localhost:3000/sp100029/wallet/self/detail](http://localhost:3000/sp100029/wallet/self/detail),则显示'{"ret":1001}';<br/>
 
