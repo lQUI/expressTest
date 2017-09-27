@@ -44,7 +44,7 @@ Finished
 
 
 #3.5 Logging to Multiple Files Differentiated by Levels<br/>
-操作步骤：浏览器输入[http://localhost:3000/static/index.html](http://localhost:3000/static/static/index.html#ltmfdbl)将会打开页面，然后选择需要记录的日志的用户名和日志的级别，点击'add'按钮，将会在该目录下生成cheese.log，而且该文件会记录下此次访问的时间，日志的级别和输出信息'WOW!!!'。
+操作步骤：浏览器输入[http://localhost:3000/static/index.html](http://localhost:3000/static/static/index.html#ltmfdbl)将会打开页面，然后选择需要记录的日志的用户名和日志的级别，点击'add'按钮，将会在该目录下生成logs/app.log，而且该文件会记录下此次访问的时间，日志的级别和输出信息'WOW!!!'。
 
 
 #3.6 Hiding Your Authentication Protected Service behind AuthMiddleware<br/>
@@ -53,7 +53,7 @@ Finished
 如果输入的是[http://localhost:3000/sp100029/wallet/self/detail](http://localhost:3000/sp100029/wallet/self/detail),则显示'{"ret":1001}';<br/>
 
 #3.7 Automate Your Documentation<br/>
-在接下来的执行,可能需要你本机装有[apidoc](http://apidocjs.com/index.html#install)
+在接下来的执行,可能需要你本机装有[apidoc](http://apidocjs.com/index.html#install)<br/>
 输入一下指令会在项目目录下生成doc文件夹,该apidoc只描述了3.1~3.2的api</br>.
 <code>$ apidoc  -f "app\\.js$"</code>
 
